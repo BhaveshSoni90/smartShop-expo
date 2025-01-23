@@ -1,13 +1,11 @@
 import React from "react";
-import { Text,ScrollView, PanGestureHandler } from "react-native-gesture-handler";
+import { Text,ScrollView } from "react-native-gesture-handler";
 const About = () =>{
     return(
         <>
-        <GestureHandlerRootView collapsable={false}>
-            <PanGestureHandler>
+        <ScrollView collapsable={false}>
             <Text>this is about page of my app</Text>
-            </PanGestureHandler>
-        </GestureHandlerRootView>
+        </ScrollView>
         </>
     )
 }
