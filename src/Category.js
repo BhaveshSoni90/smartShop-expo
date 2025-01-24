@@ -16,11 +16,13 @@ const Category = () => {
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
+    marginTop: 20,
   };
 
   const headerTextStyle = {
     fontSize: 18,
     fontWeight: 'bold',
+    marginLeft:13,
   };
 
   const buttonStyle = {
@@ -28,20 +30,20 @@ const Category = () => {
     alignItems: 'center',
     marginRight: 13,
     padding:6,
-    backgroundColor:'pink',
+    backgroundColor:'#5ab8d4',
     borderRadius: 10,
   };
 
   const buttonTextStyle = {
     fontSize: 14,
-    color: '#3b82f6', // Blue color (like Tailwind's text-blue-500)
+    color: '#ffffff', // Blue color (like Tailwind's text-blue-500)
   };
 
   const categoryItemStyle = {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#f3f4f6', // Light gray (like Tailwind's bg-gray-200)
+    backgroundColor: '#a0e0e4', // Light gray (like Tailwind's bg-gray-200)
     borderRadius: 8,
     padding: 16,
     margin: 8,
