@@ -3,16 +3,15 @@ import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true); // To show a loading indicator while fetching
+  const [loading, setLoading] = useState(true); 
 
-  // Fetch categories from the backend API
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:5000/categories'); // Replace with your backend URL
+        const response = await fetch('http://localhost:5000/categories'); 
         const data = await response.json();
         setCategories(data);
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false); 
       } catch (error) {
         console.error('Error fetching categories:', error);
         setLoading(false);
@@ -20,7 +19,7 @@ const Category = () => {
     };
 
     fetchCategories();
-  }, []); // Empty dependency array to run only once when the component is mounted
+  }, []); 
 
   const headerStyle = {
     flexDirection: 'row',
@@ -81,14 +80,13 @@ const Category = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Show loading indicator until data is fetched */}
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" style={{ marginTop: 50 }} />
       ) : (
         <FlatList
           data={categories}
           renderItem={renderCategory}
-          keyExtractor={(item) => item._id} // Use _id from backend as unique key
+          keyExtractor={(item) => item._id} 
           numColumns={3}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           ListHeaderComponent={() => (
