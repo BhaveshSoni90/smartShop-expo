@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from "react-native";
+import { useNavigation } from '@react-navigation/native';  // Import useNavigation
 
 const Category = () => {
+  const navigation = useNavigation();  // Initialize the navigation hook
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:5000/categories'); 
+        const response = await fetch('http://localhost:5000/categories');
         const data = await response.json();
         setCategories(data);
-        setLoading(false); 
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching categories:', error);
         setLoading(false);
@@ -19,7 +21,7 @@ const Category = () => {
     };
 
     fetchCategories();
-  }, []); 
+  }, []);
 
   const headerStyle = {
     flexDirection: 'row',
@@ -72,11 +74,17 @@ const Category = () => {
   };
 
   const renderCategory = ({ item }) => (
-    <View style={categoryItemStyle}>
+    <TouchableOpacity 
+      style={categoryItemStyle}
+      onPress={() => navigation.navigate('CategoryItems', { categoryId: item._id })} // Navigate with categoryId
+    >
       <Image source={{ uri: `data:image/png;base64,${item.image}` }} style={categoryImageStyle} />
       <Text style={categoryNameStyle}>{item.name}</Text>
-    </View>
+    </TouchableOpacity>
   );
+
+  // Only show first 6 categories
+  const displayedCategories = categories.slice(0, 6);
 
   return (
     <View style={{ flex: 1 }}>
@@ -84,9 +92,9 @@ const Category = () => {
         <ActivityIndicator size="large" color="#0000ff" style={{ marginTop: 50 }} />
       ) : (
         <FlatList
-          data={categories}
+          data={displayedCategories}
           renderItem={renderCategory}
-          keyExtractor={(item) => item._id} 
+          keyExtractor={(item) => item._id}
           numColumns={3}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           ListHeaderComponent={() => (
