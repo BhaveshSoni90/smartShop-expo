@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-const CategoryItems = ({ route }) => {
-  const { categoryId } = route.params;  // Get categoryId from the route params
+const CategoryItems = ({ route, navigation }) => {
+  const { categoryId, categoryName } = route.params;  // Get categoryId and categoryName from route params
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('Category ID received:', categoryId);  // Log categoryId
+    // Dynamically set the screen header title based on the category name
+    navigation.setOptions({
+      title: categoryName,  // Set the header title to the category name
+    });
 
     const fetchProducts = async () => {
       try {
-        // Replace localhost with your computer's IP address if testing on a mobile device
         const response = await fetch(`http://localhost:5000/products?category=${categoryId}`);
         const data = await response.json();
-        console.log('Fetched products:', data);
         setProducts(data);
         setLoading(false);
       } catch (error) {
@@ -24,11 +25,10 @@ const CategoryItems = ({ route }) => {
     };
 
     fetchProducts();
-  }, [categoryId]);
+  }, [categoryId, categoryName, navigation]);
 
   const renderProduct = ({ item }) => (
     <TouchableOpacity style={styles.productCard}>
-      {/* Make sure the image URI is correct */}
       <Image 
         source={{ uri: item.image }} 
         style={styles.productImage} 

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator, ScrollView } from "react-native";
 import { GestureHandlerRootView, PanGestureHandler } from "react-native-gesture-handler";
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation } from '@react-navigation/native'; // useNavigation hook
+import Category from "./Category";
 const First = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation();  // useNavigation hook to navigate
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:5000/categories'); 
+        const response = await fetch('http://localhost:5000/categories'); // Replace with your API URL
         const data = await response.json();
         setCategories(data);
         setLoading(false); 
@@ -77,12 +77,13 @@ const First = () => {
   const renderCategory = ({ item }) => (
     <TouchableOpacity
       style={categoryItemStyle}
-      onPress={() => navigation.navigate('CategoryItems', { categoryId: item._id })} // Navigate and pass category ID
+      onPress={() => navigation.navigate('Categories', { screen: 'CategoryItems', params: { categoryId: item._id, categoryName: item.name } })} // Navigate to CategoryItems in CategoryStack
     >
       <Image source={{ uri: `data:image/png;base64,${item.image}` }} style={categoryImageStyle} />
       <Text style={categoryNameStyle}>{item.name}</Text>
     </TouchableOpacity>
   );
+  
 
   // Only show first 6 categories
   const displayedCategories = categories.slice(0, 6);
@@ -97,7 +98,7 @@ const First = () => {
           />
         </PanGestureHandler>
 
-        {/* Categories Section */}
+        
         <View style={{ flex: 1 }}>
           {loading ? (
             <ActivityIndicator size="large" color="#0000ff" style={{ marginTop: 50 }} />
@@ -113,7 +114,7 @@ const First = () => {
                   <Text style={headerTextStyle}>Categories</Text>
                   <TouchableOpacity 
                     style={buttonStyle} 
-                    onPress={() => navigation.navigate('Category')} 
+                    onPress={() => navigation.navigate('Categories')} // Navigate to the full Category list screen
                   >
                     <Text style={buttonTextStyle}>See All</Text>
                   </TouchableOpacity>

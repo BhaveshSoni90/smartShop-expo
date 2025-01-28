@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from "react-native";
-import { useNavigation } from '@react-navigation/native';  // Import useNavigation
+import { useNavigation } from '@react-navigation/native';
 
 const Category = () => {
-  const navigation = useNavigation();  // Initialize the navigation hook
+  const navigation = useNavigation();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -76,7 +76,10 @@ const Category = () => {
   const renderCategory = ({ item }) => (
     <TouchableOpacity 
       style={categoryItemStyle}
-      onPress={() => navigation.navigate('CategoryItems', { categoryId: item._id })} // Navigate with categoryId
+      onPress={() => navigation.navigate('CategoryItems', { 
+        categoryId: item._id,
+        categoryName: item.name  // Pass category name as well
+      })}
     >
       <Image source={{ uri: `data:image/png;base64,${item.image}` }} style={categoryImageStyle} />
       <Text style={categoryNameStyle}>{item.name}</Text>
@@ -99,11 +102,7 @@ const Category = () => {
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           ListHeaderComponent={() => (
             <View style={headerStyle}>
-              <Text style={headerTextStyle}>Categories</Text>
-              <TouchableOpacity style={buttonStyle}>
-                <Text style={buttonTextStyle}>See All</Text>
-              </TouchableOpacity>
-            </View>
+             </View>
           )}
         />
       )}
