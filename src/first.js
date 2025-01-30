@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator, ScrollView } from "react-native";
 import { GestureHandlerRootView, PanGestureHandler } from "react-native-gesture-handler";
-import { useNavigation } from '@react-navigation/native'; // useNavigation hook
+import { useNavigation } from '@react-navigation/native';
 import Category from "./Category";
 const First = () => {
-  const navigation = useNavigation();  // useNavigation hook to navigate
+  const navigation = useNavigation(); 
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:5000/categories'); // Replace with your API URL
+        const response = await fetch('http://localhost:5000/categories');
         const data = await response.json();
         setCategories(data);
         setLoading(false); 
