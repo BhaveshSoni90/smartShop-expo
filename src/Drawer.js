@@ -6,11 +6,10 @@ import About from './About';
 import Login from './Auth';
 import Category from './Category';
 import CategoryItems from './CategoryItems';
-
+import CategoryList from './CategoryList';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-// Stack Navigator for the Category-related screens
 function CategoryStack() {
   return (
     <Stack.Navigator>
@@ -19,13 +18,10 @@ function CategoryStack() {
     </Stack.Navigator>
   );
 }
-
 function Appdrawer() {
   return (
     <Drawer.Navigator>
-      {/* Direct components inside Drawer.Navigator */}
       <Drawer.Screen name="SmartShop" component={First} />
-      {/* Pass the Stack Navigator as the component for this screen */}
       <Drawer.Screen name="Categories" component={CategoryStack} />
       <Drawer.Screen name="About" component={About} />
       <Drawer.Screen name="Login/Signup" component={Login} />

@@ -3,11 +3,15 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Appdrawer from './src/Drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import store from './redux/store';
+import { Provider } from 'react-redux';
 export default function App() {
   return (
-    <NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
             <Appdrawer/>
     </NavigationContainer>
+    </Provider>
     
   );
 }

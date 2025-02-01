@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from "react-native";
-import { useNavigation } from '@react-navigation/native';
-import { selectApiBaseUrl } from "../redux/apiSlice";
+import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
-const Category = () => {
-  const navigation = useNavigation();
+import { selectApiBaseUrl } from "../redux/apiSlice"; // Import the API base URL from Redux
+import CategoryItems from "./CategoryItems";
+// CategoryList component to display the categories
+const CategoryList = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
- const apiBaseUrl = useSelector(selectApiBaseUrl);
+  const navigation = useNavigation();
+
+  // Get the API base URL from Redux
+  const apiBaseUrl = useSelector(selectApiBaseUrl);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -16,47 +21,19 @@ const Category = () => {
         setCategories(data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error("Error fetching categories:", error);
         setLoading(false);
       }
     };
 
     fetchCategories();
-  }, []);
-
-  const headerStyle = {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-    marginTop: 20,
-  };
-
-  const headerTextStyle = {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginLeft: 13,
-  };
-
-  const buttonStyle = {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 13,
-    padding: 6,
-    backgroundColor: '#5ab8d4',
-    borderRadius: 10,
-  };
-
-  const buttonTextStyle = {
-    fontSize: 14,
-    color: '#ffffff',
-  };
+  }, [apiBaseUrl]);
 
   const categoryItemStyle = {
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: '#a0e0e4',
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "#a0e0e4",
     borderRadius: 8,
     padding: 16,
     margin: 8,
@@ -71,24 +48,26 @@ const Category = () => {
   const categoryNameStyle = {
     marginTop: 8,
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
   };
 
   const renderCategory = ({ item }) => (
-    <TouchableOpacity 
+    <TouchableOpacity
       style={categoryItemStyle}
-      onPress={() => navigation.navigate('CategoryItems', { 
-        categoryId: item._id,
-        categoryName: item.name 
-      })}
+      onPress={() =>
+        navigation.navigate(`${CategoryItems}`, {
+          categoryId: item._id, // Pass the category ID to CategoryItems
+          categoryName: item.name, // Pass the category name to CategoryItems
+        })
+      }
     >
       <Image source={{ uri: `data:image/png;base64,${item.image}` }} style={categoryImageStyle} />
       <Text style={categoryNameStyle}>{item.name}</Text>
     </TouchableOpacity>
   );
 
-   return (
-    <View style={{ flex: 1 }}>
+  return (
+    <View style={{ flex: 1, padding: 16 }}>
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" style={{ marginTop: 50 }} />
       ) : (
@@ -97,15 +76,11 @@ const Category = () => {
           renderItem={renderCategory}
           keyExtractor={(item) => item._id}
           numColumns={3}
-          columnWrapperStyle={{ justifyContent: 'space-between' }}
-          ListHeaderComponent={() => (
-            <View style={headerStyle}>
-             </View>
-          )}
+          columnWrapperStyle={{ justifyContent: "space-between" }}
         />
       )}
     </View>
   );
 };
 
-export default Category;
+export default CategoryList;

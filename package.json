@@ -13,6 +13,7 @@
     "@expo/metro-runtime": "~4.0.1",
     "@react-navigation/drawer": "^7.1.1",
     "@react-navigation/stack": "^7.1.1",
+    "@reduxjs/toolkit": "^2.5.1",
     "axios": "^0.21.1",
     "expo": "~52.0.27",
     "expo-status-bar": "~2.0.1",
@@ -23,6 +24,8 @@
     "react-native-reanimated": "^3.16.7",
     "react-native-snap-carousel": "^1.3.1",
     "react-native-web": "~0.19.13",
+    "react-redux": "^9.2.0",
+    "redux": "^5.0.1",
     "tailwind-rn": "^4.2.0",
     "vector-icons": "^0.1.0"
   },
