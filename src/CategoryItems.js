@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, Image, TouchableOpacity, StyleSheet } from 'react-native';
-
+import ProductDetail from './ProductDetail';
 const CategoryItems = ({ route, navigation }) => {
   const { categoryId, categoryName } = route.params;  // Get categoryId and categoryName from route params
   const [products, setProducts] = useState([]);
@@ -28,7 +28,8 @@ const CategoryItems = ({ route, navigation }) => {
   }, [categoryId, categoryName, navigation]);
 
   const renderProduct = ({ item }) => (
-    <TouchableOpacity style={styles.productCard}>
+    <TouchableOpacity style={styles.productCard}
+    onPress={() => navigation.navigate('ProductDetails', { product: item })}>
       <Image 
         source={{ uri: item.image }} 
         style={styles.productImage} 

@@ -7,6 +7,7 @@ import Login from './Auth';
 import Category from './Category';
 import CategoryItems from './CategoryItems';
 import CategoryList from './CategoryList';
+import ProductDetail from './ProductDetail'
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ function CategoryStack() {
     <Stack.Navigator>
       <Stack.Screen name="Categories" component={Category} />
       <Stack.Screen name="CategoryItems" component={CategoryItems} />
+      <Stack.Screen name='ProductDetails' component={ProductDetail} />
     </Stack.Navigator>
   );
 }
