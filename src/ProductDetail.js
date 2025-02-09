@@ -15,7 +15,8 @@ const ProductDetail = ({ route, navigation }) => {
   const handleOrder = () => {
     console.log('Order placed for:', product.name, 'Quantity:', quantity);
     alert(`Order placed for ${product.name} x ${quantity}`);
-    navigation.goBack(); 
+    navigation.navigate('AddressScreen', { product });
+    // navigation.goBack(); 
   };
 
   return (

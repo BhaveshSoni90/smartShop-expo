@@ -8,6 +8,8 @@ import Category from './Category';
 import CategoryItems from './CategoryItems';
 import CategoryList from './CategoryList';
 import ProductDetail from './ProductDetail'
+import AddressScreen from './AddressScreen';
+import PaymentScreen from './PaymentScreen';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -17,6 +19,8 @@ function CategoryStack() {
       <Stack.Screen name="Categories" component={Category} />
       <Stack.Screen name="CategoryItems" component={CategoryItems} />
       <Stack.Screen name='ProductDetails' component={ProductDetail} />
+      <Stack.Screen name='AddressScreen' component={AddressScreen} />
+      <Stack.Screen name='PaymentScreen' component={PaymentScreen} />
     </Stack.Navigator>
   );
 }
